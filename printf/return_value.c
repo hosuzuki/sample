@@ -1,9 +1,12 @@
 #include <stdio.h>
 #include <limits.h>
 #include <stdlib.h>
+
+#define LENGTH 10 //change the nubmer to see the resutl
+
 char	*ft_strjoin(const char *s1, char a);
 
-char *ft_overintmax(void)
+char *ft_create_str(void)
 {
 	char	*str1;
 	char	a;
@@ -13,8 +16,8 @@ char *ft_overintmax(void)
 	str1[0] = 'a';
 	str1[1] = '\0';
 	a = 'a';
-	i = 0;
-	while (i <  2) // INT_MAX 2147483647 
+	i = 1;
+	while (i <  LENGTH) // INT_MAX 2147483647 
 	{
 		str1 = ft_strjoin(str1, a);
 		if (!str1)
@@ -64,16 +67,13 @@ char	*ft_strjoin(const char *s1, char a)
 
 int	main(void)
 {
-	int	i;
-//	printf('a'); // cannot compile
-//	printf(""); // return value will be 0.
-//	printf(); // cannot compile
-//	printf("a\n");
-//	printf("%ld\n",2147483648);
-	i = 0;
+	int	r;
 	char	*str;
-	str = ft_overintmax();
-	i = printf("%s", str);
-	printf("i is : %d\n", i);
+
+	r = 0;
+	str = ft_create_str();
+	r = printf("%s", str);
+	r = printf("\nreturn value is : %d\n", r);
+	r = printf("return value is : %d\n", r);
 	return (0);
 }
