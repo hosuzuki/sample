@@ -4,13 +4,14 @@
 #include <fcntl.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <limits.h>
 
 int main(int argc, char *argv[])
 {
 	int	fd;
 	ssize_t rc;
 	size_t len;
-	char	buf[30000];
+	char	buf[(size_t)INT_MAX + 10];
 
 	fd = open("max_len_test", O_RDONLY);
 	if (argc != 2)
