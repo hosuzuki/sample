@@ -10,7 +10,7 @@ int main(int argc, char *argv[])
 	int	fd;
 	ssize_t rc;
 	size_t len;
-	char	buf[10000];
+	char	buf[30000];
 
 	fd = open("max_len_test", O_RDONLY);
 	if (argc != 2)
