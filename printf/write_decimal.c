@@ -5,12 +5,14 @@
 void ft_write_decimal(size_t decimal)
 {
 	size_t test;
-	
-	test = 10;
+	char *str = "12345";
+
+		test = 10;
 //	write(1, &decimal, 1); // doesn't print decimal.
 //	write(1, &test, 1); // doesn't print test, but '\n' is outputed.
 	printf("decimal:%zu\n", decimal);
 	printf("test:%zu\n", test);
+	write(1, str, 5);
 	write(1, "\n", 1);
 }
 
