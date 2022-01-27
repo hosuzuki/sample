@@ -18,6 +18,7 @@ int main(void)
 
 	printf("[%10f]\n", 1.0);
 	printf("[%010f]\n", 1.0);
+	printf("[%010f]\n", -1.0);
 
 	//'+'flag
 	printf("[%+d]\n", 1);
