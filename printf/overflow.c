@@ -6,12 +6,23 @@ int main(void)
 	int i;
 	int j;
 	int a;
+
+	printf("%d\n", (size_t)INT_MIN);
+	printf("%d\n", (size_t)-1);
+	printf("%d\n", (int)(INT_MAX+ 10));
+	printf("%d\n", (unsigned long long)INT_MAX);
 	
 	i = printf("%x\n", ULLONG_MAX - 1); //fffffffe 
 	printf("return value: %d\n", i); //9
 
 	i = printf("%x\n", ULLONG_MAX); //ffffffff (UINT_MAX)
 	printf("return value: %d\n", i); //9
+
+	i = printf("%x\n", ULLONG_MAX + 1); //0
+	printf("return value: %d\n", i); //2
+
+	i = printf("%x\n", ULLONG_MAX + 2); //1
+	printf("return value: %d\n", i); //2
 
 	j = printf("%p\n", "abcdefg");
 	printf("return value: %d\n", j); //12
