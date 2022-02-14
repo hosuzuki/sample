@@ -2,6 +2,12 @@
 
 int main(void)
 {
+	printf("[%0-2.0d]\n", 2);
+	printf("[%0-2.2d]\n", 2);
+	printf("[%0-2.4d]\n", 2);
+	printf("[%1.2d]\n", 2);
+	printf("[%2.1d]\n", 2);
+	printf("[%1.5d]\n", -2);
 // 整数の場合 （変換指定子が`d`や`o`など） 
 	printf("[%d]\n", 1234567);
 	printf("[%d]\n", -1234567);

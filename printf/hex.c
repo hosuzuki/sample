@@ -1,8 +1,22 @@
 #include <stdio.h>
+#include <limits.h>
+#include <stdlib.h>
+
+void end(void)__attribute__((destructor));
+
+void end(void)
+{
+    system("leaks a.out");
+}
 
 int main(void)
 {
 //	ft_printf("[%10x]\n", 1);
+	printf("%x\n", UINT_MAX);
+	printf("%x\n", UINT_MAX + 1);
+	printf("%x\n", UINT_MAX + 2);
+	printf("%x\n", UINT_MAX + 3);
+
 	printf("[%10x]\n", -1);
 	printf("%u\n", -1);
 	printf("[%10x]\n", -100);
