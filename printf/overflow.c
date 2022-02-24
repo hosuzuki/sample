@@ -6,7 +6,12 @@ int main(void)
 	int i;
 	int j;
 	int a;
+	long long l;
 
+	l = -4;
+	printf("%ld\n", l);
+
+	printf("%d\n", LONG_MIN);
 	printf("%d\n", (size_t)INT_MIN);
 	printf("%d\n", (size_t)-1);
 	printf("%d\n", (int)(INT_MAX+ 10));

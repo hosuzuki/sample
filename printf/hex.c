@@ -12,6 +12,8 @@ void end(void)
 int main(void)
 {
 //	ft_printf("[%10x]\n", 1);
+	printf("%+x\n", UINT_MAX);
+	printf("% x\n", UINT_MAX);
 	printf("%x\n", UINT_MAX);
 	printf("%x\n", UINT_MAX + 1);
 	printf("%x\n", UINT_MAX + 2);

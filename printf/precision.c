@@ -2,6 +2,12 @@
 
 int main(void)
 {
+	printf("[%2.0d]\n", -12);
+	printf("[%5.0d]\n", -12);
+	printf("[%2.1d]\n", -12);
+	printf("[%5.1d]\n", -12);
+	printf("[%10.5d]\n", -12);
+
 	printf("[%0-2.0d]\n", 2);
 	printf("[%0-2.2d]\n", 2);
 	printf("[%0-2.4d]\n", 2);
