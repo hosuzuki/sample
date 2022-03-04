@@ -9,6 +9,8 @@ void handler(int signo) {
 int main(void)
 {
 	signal(SIGINT, handler);
-	pause();
+//	pause();
+	while (1)
+		pause();
 	return 0;
 }
