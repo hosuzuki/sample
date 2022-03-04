@@ -11,8 +11,16 @@ void handler(int signo)
 
 int main(void)
 {
+	pid_t pid;
+	
+	pid = fork();
+	printf("pid : %d\n", (int)pid);
 	signal(SIGINT, handler);
-	while(1)
-		sleep(1);
+	sleep(10);
+	write(1, "1\n", 2);
+	while(1){}
+	//	write(1, "2\n", 2);
+//	while(1)
+//		sleep(10);
 	return 0;
 }
