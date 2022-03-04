@@ -32,7 +32,6 @@ int main(void)
 			return 0;
 			*/
 
-	/* シグナルマスクのクリア(エラーチェック付き) */ 
 	write(1, "1", 1);
 	if (-1 == sigemptyset(&sa.sa_mask))
 	{
@@ -44,14 +43,11 @@ int main(void)
 	write(1, "4", 1);
 	sa.sa_flags = 0;
 	write(1, "5", 1);
-
-	/* シグナルハンドラの登録(エラーチェック付き) */ 
 	if (-1 == sigaction(SIGINT, &sa, NULL))
 	{
 		write(1, "6", 1);
 		exit(1);
 	}
-	/* 変数countが50以下の間ループ */
 	while(count < 50)
 	{}
 	write(1, "7", 1);
