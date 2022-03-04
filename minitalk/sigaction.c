@@ -15,7 +15,6 @@ void signal_handler(int signum)
 
 int main(void)
 {
-
 	struct sigaction sa;
 
 	/*	write(1, "1", 1);
