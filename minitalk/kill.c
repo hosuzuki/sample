@@ -19,7 +19,9 @@ int main()
 	else
 	{
 		sleep(3);
+		printf("p_id = %d\n", p_id);
 		kill(p_id, SIGINT);
+		printf("p_id = %d\n", p_id);
 		wait(NULL);
 		printf("parent process is on process\n");
 	}

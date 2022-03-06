@@ -7,6 +7,7 @@ int count;
 
 void signal_handler(int signum)
 {
+	printf("signum: %d\n", signum);
 	count += 100;
 	//	puts("stop");
 	write(1, "8", 1);
