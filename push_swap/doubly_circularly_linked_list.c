@@ -112,7 +112,7 @@ enum CmdRetValue_tag cmd_print(void)
 
 enum CmdRetValue_tag cmd_exit(void)
 {
-	puts( "終了します。" );
+	puts( "Exit" );
 	return CMD_RET_VALUE_EXIT;
 }
 
