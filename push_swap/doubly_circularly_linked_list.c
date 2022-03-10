@@ -71,14 +71,14 @@ enum CmdRetValue_tag cmd_delete(void)
 	char buf[40];
 	int value;
 
-	puts( "削除する数値データを入力してください。" );
-	fgets( buf, sizeof(buf), stdin );
-	sscanf( buf, "%d", &value );
-	if( delete_elem(value) >= 1 ){
-		puts( "要素を削除しました。" );
+	puts( "Enter the value to be deleted");
+	fgets(buf, sizeof(buf), stdin);
+	sscanf(buf, "%d", &value);
+	if(delete_elem(value) >= 1){
+		puts( "deleted" );
 	}
 	else{
-		puts( "削除する要素は見つかりませんでした。" );
+		puts("cannot find the value");
 	}
 	return CMD_RET_VALUE_CONTINUE;
 }
@@ -88,16 +88,13 @@ enum CmdRetValue_tag cmd_search(void)
 	char buf[40];
 	int value;
 
-	puts( "探索する数値データを入力してください。" );
-	fgets( buf, sizeof(buf), stdin );
-	sscanf( buf, "%d", &value );
-
-	if( search_elem(value) == NULL ){
-		printf( "%d は連結リスト中に存在しません。\n", value );
-	}
-	else{
-		printf( "%d は連結リスト中に存在します。\n", value );
-	}
+	puts("Enter the vlue to be searched");
+	fgets(buf, sizeof(buf), stdin);
+	sscanf(buf, "%d", &value);
+	if(search_elem(value) == NULL )
+		printf( "%d doesn't exist.\n", value );
+	else
+		printf( "%d exits.\n", value );
 	return CMD_RET_VALUE_CONTINUE;
 }
 
@@ -123,13 +120,14 @@ void add_elem(int value)
 {
 	struct LinkedList_tag	*tail = search_tail();
 	struct LinkedList_tag	*elem = malloc( sizeof(struct LinkedList_tag) );
-	if( elem == NULL ){
-		fputs( "メモリ割り当てに失敗しました。", stderr );
-		exit( 1 );
+	if( elem == NULL )
+	{
+		fputs( "malloc error", stderr);
+		exit (1);
 	}
 	elem->value = value;
-	elem->next = &gHead; // 末尾に追加するので、次の要素は先頭
-	elem->prev = tail;   // 末尾に追加するので、前の要素はこれまでに末尾だった要素
+	elem->next = &gHead;
+	elem->prev = tail;
 	tail->next = elem;
 }
 
@@ -138,14 +136,15 @@ int delete_elem(int value)
 	struct LinkedList_tag* p = gHead.next;
 	int count = 0;
 
-	while( p != &gHead ){
-		if( p->value == value ){
-			p = delete_one_node( p );
+	while(p != &gHead)
+	{
+		if(p->value == value)
+		{
+			p = delete_one_node(p);
 			++count;
 		}
-		else{
+		else
 			p = p->next;
-		}
 	}
 	return count;
 }
@@ -154,21 +153,22 @@ void clear_list(void)
 {
 	struct LinkedList_tag* p = gHead.next;
 
-	while( p != &gHead ){
-		p = delete_one_node( p );
-	}
+	while( p != &gHead )
+		p = delete_one_node(p);
 }
 
 void print_list(void)
 {
 	struct LinkedList_tag* p = gHead.next;
 
-	if( p == &gHead ){
-		puts( "リストは空です。" );
+	if(p == &gHead)
+	{
+		puts("The list is empty.");
 		return;
 	}
-	while( p != &gHead ){
-		printf( "%d\n", p->value );
+	while(p != &gHead)
+	{
+		printf("%d\n", p->value);
 		p = p->next;
 	}
 }
@@ -182,9 +182,9 @@ struct LinkedList_tag	*search_tail(void)
 	return p;
 }
 
-struct LinkedList_tag* search_elem(int value)
+struct LinkedList_tag	*search_elem(int value)
 {
-	struct LinkedList_tag* p = gHead.next;
+	struct LinkedList_tag	*p = gHead.next;
 
 	while( p != &gHead ){
 		if( p->value == value ){
@@ -200,7 +200,7 @@ struct LinkedList_tag* delete_one_node(struct LinkedList_tag* node)
 	struct LinkedList_tag* const prev = node->prev;
 	node->next->prev = prev;
 	prev->next = node->next;
-	free( node );
+	free(node);
 	return prev->next;
 }
 
