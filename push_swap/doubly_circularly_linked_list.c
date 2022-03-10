@@ -6,9 +6,9 @@ int main(void)
 	while(1)
 	{
 		print_explain();
-		if(get_cmd() == CMD_RET_VALUE_EXIT)
+		if(get_cmd() == CMD_RET_VALUE_EXIT) // CMD_RET_VALUE_EXIT = 1
 			break;
-		print_blank_lines();
+		puts( "" );
 	}
 	return 0;
 }
@@ -22,19 +22,13 @@ void init_head(void)
 
 void print_explain(void)
 {
-	puts( "コマンドを入力してください。" );
-	printf( "　連結リストに要素を追加する: %s (%s)\n", CMD_STR[CMD_ADD][CMD_STR_SHORT], CMD_STR[CMD_ADD][CMD_STR_LONG] );
-	printf( "　連結リストから要素を削除する: %s (%s)\n", CMD_STR[CMD_DELETE][CMD_STR_SHORT], CMD_STR[CMD_DELETE][CMD_STR_LONG] );
-	printf( "　連結リストから要素を探す: %s (%s)\n", CMD_STR[CMD_SEARCH][CMD_STR_SHORT], CMD_STR[CMD_SEARCH][CMD_STR_LONG] );
-	printf( "　連結リストを空にする: %s (%s)\n", CMD_STR[CMD_CLEAR][CMD_STR_SHORT], CMD_STR[CMD_CLEAR][CMD_STR_LONG] );
-	printf( "　連結リストの中身を出力する: %s (%s)\n", CMD_STR[CMD_PRINT][CMD_STR_SHORT], CMD_STR[CMD_PRINT][CMD_STR_LONG] );
-	printf( "　終了する: %s(%s)\n", CMD_STR[CMD_EXIT][CMD_STR_SHORT], CMD_STR[CMD_EXIT][CMD_STR_LONG] );
-	puts( "" );
-}
-
-void print_blank_lines(void)
-{
-	puts( "" );
+	puts( "Enter a command" );
+	printf( " add a value: %s (%s)\n", CMD_STR[CMD_ADD][CMD_STR_SHORT], CMD_STR[CMD_ADD][CMD_STR_LONG] );
+	printf( " delete a value: %s (%s)\n", CMD_STR[CMD_DELETE][CMD_STR_SHORT], CMD_STR[CMD_DELETE][CMD_STR_LONG] );
+	printf( " search a value: %s (%s)\n", CMD_STR[CMD_SEARCH][CMD_STR_SHORT], CMD_STR[CMD_SEARCH][CMD_STR_LONG] );
+	printf( " empty the list: %s (%s)\n", CMD_STR[CMD_CLEAR][CMD_STR_SHORT], CMD_STR[CMD_CLEAR][CMD_STR_LONG] );
+	printf( " print out value in the list: %s (%s)\n", CMD_STR[CMD_PRINT][CMD_STR_SHORT], CMD_STR[CMD_PRINT][CMD_STR_LONG] );
+	printf( " exit: %s(%s)\n", CMD_STR[CMD_EXIT][CMD_STR_SHORT], CMD_STR[CMD_EXIT][CMD_STR_LONG] );
 	puts( "" );
 }
 
@@ -43,23 +37,20 @@ enum CmdRetValue_tag get_cmd(void)
 	char buf[20];
 	get_line( buf, sizeof(buf) );
 
-	enum Cmd_tag cmd = CMD_NUM;
-	for( int i = 0; i < CMD_NUM; ++i ){
-		if( strcmp( buf, CMD_STR[i][CMD_STR_SHORT] ) == 0
-				|| strcmp( buf, CMD_STR[i][CMD_STR_LONG] ) == 0
-			){
+	enum Cmd_tag cmd = CMD_NUM; //cmd = 6
+	for(int i = 0; i < CMD_NUM; ++i )
+	{
+		if(strcmp(buf, CMD_STR[i][CMD_STR_SHORT]) == 0
+				|| strcmp( buf, CMD_STR[i][CMD_STR_LONG]) == 0)
+		{
 			cmd = i;
 			break;
 		}
 	}
-
-	if( 0 <= cmd && cmd < CMD_NUM ){
+	if( 0 <= cmd && cmd < CMD_NUM )
 		return CMD_FUNC[cmd]();
-	}
-	else{
-		puts( "そのコマンドは存在しません。" );
-	}
-
+	else
+		puts( "the command isn't valid" );
 	return CMD_RET_VALUE_CONTINUE;
 }
 
@@ -68,12 +59,10 @@ enum CmdRetValue_tag cmd_add(void)
 	char buf[40];
 	int value;
 
-	puts( "追加する数値データを入力してください。" );
-	fgets( buf, sizeof(buf), stdin );
-	sscanf( buf, "%d", &value );
-
-	add_elem( value );
-
+	puts( "Enter the value to be added" );
+	fgets(buf, sizeof(buf), stdin );
+	sscanf(buf, "%d", &value);
+	add_elem(value);
 	return CMD_RET_VALUE_CONTINUE;
 }
 
@@ -85,14 +74,12 @@ enum CmdRetValue_tag cmd_delete(void)
 	puts( "削除する数値データを入力してください。" );
 	fgets( buf, sizeof(buf), stdin );
 	sscanf( buf, "%d", &value );
-
 	if( delete_elem(value) >= 1 ){
 		puts( "要素を削除しました。" );
 	}
 	else{
 		puts( "削除する要素は見つかりませんでした。" );
 	}
-
 	return CMD_RET_VALUE_CONTINUE;
 }
 
@@ -134,8 +121,8 @@ enum CmdRetValue_tag cmd_exit(void)
 
 void add_elem(int value)
 {
-	struct LinkedList_tag* tail = search_tail();
-	struct LinkedList_tag* elem = malloc( sizeof(struct LinkedList_tag) );
+	struct LinkedList_tag	*tail = search_tail();
+	struct LinkedList_tag	*elem = malloc( sizeof(struct LinkedList_tag) );
 	if( elem == NULL ){
 		fputs( "メモリ割り当てに失敗しました。", stderr );
 		exit( 1 );
@@ -186,13 +173,12 @@ void print_list(void)
 	}
 }
 
-struct LinkedList_tag* search_tail(void)
+struct LinkedList_tag	*search_tail(void)
 {
-	struct LinkedList_tag* p = &gHead;
+	struct LinkedList_tag	*p = &gHead;
 
-	while( p->next != &gHead ){
+	while(p->next != &gHead)
 		p = p->next;
-	}
 	return p;
 }
 
@@ -223,7 +209,6 @@ void get_line(char* buf, size_t size)
 	fgets(buf, size, stdin);
 
 	char* p = strchr(buf, '\n');
-	if (p != NULL) {
+	if (p != NULL)
 		*p = '\0';
-	}
 }
