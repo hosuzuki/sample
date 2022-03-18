@@ -14,23 +14,37 @@ int	main(int argc, char **argv)
 		{
 			j = 0;
 			flag = 0;
-			while (argv[2][j])
+			while (j < i)
 			{
-				if (argv[1][i] == argv[2][j])
+				if (argv[1][i] == argv[1][j])
 					flag = 1;
-				x = 0;
-				while (x < i)
-				{
-					if (argv[1][i] == argv[1][x])
-						flag = 1;
-					x++;
-				}
 				j++;
-				
 			}
 			if (flag == 0)
 				write(1, &argv[1][i], 1);
 			i++;
+		}
+		j = 0;
+		while (argv[2][j])
+		{
+			i = 0;
+			flag = 0;
+			while (argv[1][i])
+			{
+				if (argv[2][j] ==  argv[1][i])
+					flag = 1;
+				i++;
+			}
+			x = 0;
+			while (x < j)
+			{
+				if (argv[2][j] == argv[2][x])
+					flag = 1;
+				x++;
+			}
+			if (flag == 0)
+				write(1, &argv[2][j], 1);
+			j++;
 		}
 	}
 	write(1, "\n", 1);
