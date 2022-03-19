@@ -22,7 +22,7 @@ char	*ft_strchr(const char *s, int c)
 	return (NULL);
 }
 
-char	*ft_strjoin(const char *s1, const char *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*dst;
 	size_t	i;
@@ -32,25 +32,21 @@ char	*ft_strjoin(const char *s1, const char *s2)
 		return (NULL);
 	dst = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (!dst)
-	{
-		free ((void *)s2);
 		return (NULL);
-	}
 	i = 0;
-	j = 0;
 	while (s1[i])
 	{
 		dst[i] = s1[i];
 		i++;
 	}
+	j = 0;
 	while (s2[j])
 		dst[i++] = s2[j++];
 	dst[i] = '\0';
-	free ((void *)s2);
 	return (dst);
 }
 
-char	*ft_strndup(const char *s, size_t len)
+char	*ft_strndup(char *s, size_t len)
 {
 	char	*dst;
 	size_t	i;
@@ -68,161 +64,110 @@ char	*ft_strndup(const char *s, size_t len)
 	return (dst);
 }
 
-void	free_all(t_lst *head)
+void	free_all(t_lst *lst, char *str)
 {
-	t_lst	*tmp;
-
-	while (head)
+	if (lst)
 	{
-		tmp = head->next;
-		if (head->str)
-			free (str);
-		free (head);
-		head = tmp;
+		if (lst->str)
+			free (lst->str);
+		free (lst);
 	}
+	if (str)
+		free (str);
 }
 
-static char	*ft_create_ret(t_lst *buf)
+static char	*create_ret(t_lst *lst)
 {
 	char	*ret;
-	char	*isnewl;
+	char	*newl;
 	char	*tmp;
 
-	isnewl = ft_strchr(buf->str, '\n');
-	if (!isnewl)
+	newl = ft_strchr(lst->str, '\n');
+	if (!newl)
 	{
-		if (*(buf->str) == '\0')
+		if (*(lst->str) == '\0')
 			return (NULL);
-		ret = ft_strndup(buf->str, ft_strlen(buf->str));
+		ret = ft_strndup(lst->str, ft_strlen(lst->str));
 	}
 	else
 	{
-		ret = ft_strndup(buf->str, isnewl - buf->str + 1);
-		tmp = ft_strndup(isnewl + 1, ft_strlen(isnewl + 1));
+		ret = ft_strndup(lst->str, newl - lst->str + 1);
+		tmp = ft_strndup(newl + 1, ft_strlen(newl + 1));
 		if (!tmp)
 		{
 			free (ret);
 			return (NULL);
 		}
-		free (buf->str);
-		buf->str = tmp;
+		free (lst->str);
+		lst->str = tmp;
 	}
 	return (ret);
 }
 
-static int	ft_read(int fd, t_lst *buf)
+static int	ft_read(t_lst *lst)
 {
 	ssize_t	rc;
-	char	*buf;
+	char	*new;
+	char	*tmp;
 
 	while (1)
 	{
-		buf = NULL;
-		if (ft_strchr(buf->str, '\n'))
-			return (GOOD);
-		buf = (char *)malloc(sizeof(char) * ((size_t)BUFFER_SIZE + 1));
-		rc = read(fd, buf, BUFFER_SIZE);
+		tmp = NULL;
+		if (ft_strchr(lst->str, '\n'))
+			return (1);
+		tmp = (char *)malloc(sizeof(char) * 1025);
+		rc = read(0, tmp, 1024);
 		if (rc == -1 || rc == 0)
 		{
-			free(buf);
+			free_all(lst, tmp);
 			if (rc == -1)
-				return (ERROR);
-			return (END);
+				return (-1);
+			return (0);
 		}
-		buf[rc] = '\0';
-		buf = ft_strjoin(buf->str, buf);
-		if (!buf)
-			return (ERROR);
-		free (buf->str);
-		buf->str = buf;
-	}
-}
-
-t_lst	*ft_lstnew(void	*content)
-{
-	t_lst	*buf;
-
-	buf = (t_lst *)malloc(sizeof(t_lst));
-	if (!buf)
-		return (NULL);
-	buf->str = ft_strndup(content, 0);
-	if (!buf->str)
-	{
-		free(buf);
-		return (NULL);
-	}
-	buf->len = 0;
-	buf->next = NULL;
-	return (buf);
-}
-
-int	init_lst(char **line, t_lst *head)
-{
-	t_lst	*buf;
-	t_lst	*tmp;
-
-	if (!(*head))
-	{
-		buf = ft_lstnew("");
-		if (!buf)
+		tmp[rc] = '\0';
+		new = ft_strjoin(lst->str, tmp);
+		if (!new)
+		{
+			free_all(lst, tmp);
 			return (-1);
-		head = buf;
-		return (0);
+		}
+		free (lst->str);
+		free (tmp);
+		lst->str = new;
 	}
-	buf = ft_lstnew("");
-	if (!buf)
-	{
-		free_all(head);
-		return (-1);
-	}
-	tmp = head;
-	while (tmp->next != NULL)
-		tmp = tmp->next;
-	tmp->next = buf;
-	return (0);
-//	buf->next = *head;
-//	*head = buf;
-//	return (buf);
 }
 
-char	*init_str(char **line)
-{
-	
 t_lst	*init_lst(void)
 {
 	t_lst	*lst;
 	
 	lst = (t_lst *)malloc(sizeof(t_lst));
-	(!lst)
+	if (!lst)
 		return (NULL);
 	lst->str = NULL;
 	lst->len = 0;
-	lst->next = NULL;
 	return (lst);
 }
 
-//char	*get_next_line(int fd)
 int	get_next_line(char **line)
 {
-	static t_lst	*head;
-	t_lst			*buf;
-	int				ret;
+	static t_lst	*lst = NULL;
+	int 	status;
 
-	if (!head)
-		head = NULL;
-//	init_lst();
-//	lst->str = init_str(line);
-	
-	if (-1 = init_lst(line, head);
-		return (-1);
-	status = ft_read(fd, buf);
-	if (status == ERROR)
+	if(!lst)
 	{
-		free_all(&head, buf);
+		lst = init_lst();
+		if (!lst)
+			return (-1);
+	}
+	status = ft_read(lst);
+	if (status == -1)
+	{
+		free_all(lst, NULL);
 		return (-1);
 	}
-	ret = ft_create_ret(buf);
-	if (status == END || ret == NULL)
-		ft_free_lst(&head, buf);
-	return (ret);
+	*line  = create_ret(lst);
+	if (status == 0 || *line == NULL)
+		free_all(lst, NULL);
+	return (status);
 }
