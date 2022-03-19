@@ -21,6 +21,7 @@ int	ft_isdigit(int c)
 {
 	return ('0' <= c && c <= '9')
 }
+
 static void	ft_print_space_deci(t_stock *lst, size_t len, long long tmp)
 {
 	if ((long long)len < lst->width)
@@ -235,3 +236,4 @@ int	ft_printf(const char *fmt, ...)
 	free (lst);
 	return (total_length);
 }
+
