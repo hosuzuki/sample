@@ -69,11 +69,18 @@ void	free_all(t_lst *lst, char *str)
 	if (lst)
 	{
 		if (lst->str)
+		{
 			free (lst->str);
+			lst->str = NULL;
+		}
 		free (lst);
+		lst = NULL;
 	}
 	if (str)
+	{
 		free (str);
+		str = NULL;
+	}
 }
 
 static char	*create_ret(t_lst *lst)
@@ -88,14 +95,24 @@ static char	*create_ret(t_lst *lst)
 		if (*(lst->str) == '\0')
 			return (NULL);
 		ret = ft_strndup(lst->str, ft_strlen(lst->str));
+		if (!ret)
+		{
+			free_all(lst, NULL);
+			return (NULL);
+		}
 	}
 	else
 	{
 		ret = ft_strndup(lst->str, newl - lst->str + 1);
+		if (!ret)
+		{
+			free_all(lst, NULL);
+			return (NULL);
+		}
 		tmp = ft_strndup(newl + 1, ft_strlen(newl + 1));
 		if (!tmp)
 		{
-			free (ret);
+			free_all(lst, ret);
 			return (NULL);
 		}
 		free (lst->str);
@@ -116,6 +133,11 @@ static int	ft_read(t_lst *lst)
 		if (ft_strchr(lst->str, '\n'))
 			return (1);
 		tmp = (char *)malloc(sizeof(char) * 1025);
+		if (!tmp)
+		{
+			free_all(lst, NULL);
+			return (-1);
+		}
 		rc = read(0, tmp, 1024);
 		if (rc == -1 || rc == 0)
 		{
@@ -144,7 +166,7 @@ t_lst	*init_lst(void)
 	lst = (t_lst *)malloc(sizeof(t_lst));
 	if (!lst)
 		return (NULL);
-	lst->str = NULL;
+	lst->str = ft_strndup("", 0);
 	lst->len = 0;
 	return (lst);
 }
@@ -166,7 +188,7 @@ int	get_next_line(char **line)
 		free_all(lst, NULL);
 		return (-1);
 	}
-	*line  = create_ret(lst);
+	*line = create_ret(lst);
 	if (status == 0 || *line == NULL)
 		free_all(lst, NULL);
 	return (status);
