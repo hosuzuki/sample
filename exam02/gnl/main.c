@@ -3,6 +3,14 @@
 #include <stdlib.h>
 #include "get_next_line.h"
 
+/*
+void end(void)__attribute__((destructor));
+
+void end(void)
+{
+	    system("leaks get_next_line");
+}
+*/
 int	main(void)
 {
 	int		r;

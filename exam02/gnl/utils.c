@@ -1,6 +1,10 @@
+#include "get_next_line.h"
+
 char	*ft_strchar(char *str, int c)
 {
 	size_t	i = 0;
+	if (str == NULL)
+		return (0);
 	while (str[i])
 	{
 		if(str[i] == (char)c)
@@ -12,18 +16,20 @@ char	*ft_strchar(char *str, int c)
 
 size_t ft_strlen(char	*str)
 {
+	if (str == NULL)
+		return (0);
 	size_t i = 0;
 	while(str[i])
-		i++
+		i++;
 	return (i);
 }
 
-void	ft_strjoin(char	*buf, char *b)
+char	*ft_strjoin(char	*buf, char *b)
 {
 	int i = 0;
 	int j = 0;
 	int len1;
-	int lent2;
+	int len2;
 	char *new;
 
 	len1 = ft_strlen(buf);
@@ -31,16 +37,22 @@ void	ft_strjoin(char	*buf, char *b)
 	new = (char *)malloc(sizeof(char) * (len1 + len2 + 1));
 	if (!new)
 		return (NULL);
-	while (buf[i])
+	if (buf != NULL)
 	{
-		new[i] = buf[i];
-		i++;
+		while (buf[i])
+		{
+			new[i] = buf[i];
+			i++;
+		}
 	}
-	while (b[j])
+	if (b != NULL)
 	{
-		new[i] = b[j];
-		i++;
-		j++;
+		while (b[j])
+		{
+			new[i] = b[j];
+			i++;
+			j++;
+		}
 	}
 	new[i] = '\0';
 	return (new);
@@ -49,14 +61,14 @@ void	ft_strjoin(char	*buf, char *b)
 char	*ft_strndup(char *str, size_t len)
 {
 	char	*new;
-	size_i i =0;
+	size_t i =0;
 
 	new = (char *)malloc(sizeof(char) * (len + 1));
 	if (!new)
 		return (NULL);
 	while (i < len)
 	{
-		new[i] = str[i]
+		new[i] = str[i];
 		i++;
 	}
 	new[i] = '\0';
