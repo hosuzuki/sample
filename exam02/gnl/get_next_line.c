@@ -20,7 +20,7 @@ char	*ft_create_ret(char	**buf)
 	}
 	else
 	{
-		ret = ft_strndup(*buf, new - *buf + 1);
+		ret = ft_strndup(*buf, new - *buf);
 		if (!ret)
 		{
 			free (*buf);
@@ -83,6 +83,10 @@ int get_next_line(char **line)
 	static char	*buf;
 	int	status;
 
+//	buf = ft_strndup("", 0);
+//	buf = NULL;
+//	if (!buf)
+//		return (-1);
 	status = ft_read(&buf);
 	if (status == -1)
 	{
