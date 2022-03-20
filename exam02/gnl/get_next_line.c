@@ -95,9 +95,14 @@ int get_next_line(char **line)
 	}
 	if (buf != NULL)
 		*line = ft_create_ret(&buf);
-	if (status == 0)
+	if (status == 0 && *line == NULL)
 	{
 		*line = ft_strndup("", 0);
+		if (!*line)
+		{
+			free (buf);
+			return (-1);
+		}
 		free (buf);
 		return (0);
 	}
