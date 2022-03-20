@@ -97,7 +97,7 @@ int get_next_line(char **line)
 		*line = ft_create_ret(&buf);
 	if (status == 0)
 	{
-//		*line = ft_strndup(0);
+		*line = ft_strndup("", 0);
 		free (buf);
 		return (0);
 	}
