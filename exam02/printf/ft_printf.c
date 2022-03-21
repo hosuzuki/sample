@@ -9,6 +9,7 @@ typedef struct s_lst
 	size_t len;
 	int	status;
 	int	sign;
+	int zero_flag;
 	long long	wid;
 	long long pre;
 } t_lst;
@@ -93,7 +94,8 @@ void ft_deci(t_lst *lst, int d)
 	if (d < 0)
 	{
 		lst->sign = -1;
-		i++;
+		if (lst->pre < lst->wid)
+			i++;
 	}
 	len = i;
 	if (len < lst->wid)
@@ -108,7 +110,7 @@ void ft_deci(t_lst *lst, int d)
 			{
 				ft_write_char(lst, '-');
 				lst->sign = 0;
-				len++;
+				len--;
 			}
 			ft_write_char(lst, '0');
 		}
@@ -118,6 +120,8 @@ void ft_deci(t_lst *lst, int d)
 	}
 	if (lst->sign == -1)
 		ft_write_char(lst, '-');
+	if (deci[0] == '0' && lst->pre == 0 && lst->zero_flag == 1)
+		return ;
 	ft_write_str(lst, deci);
 }
 
@@ -206,11 +210,12 @@ void	ft_save_flags(const char *fmt, t_lst *lst, int *i)
 	lst->sign = 1;
 	lst->wid = 0;
 	lst->pre  = 0;
+	lst->zero_flag = 0;
 	while (ft_isdigit(fmt[*i]))
 		lst->wid = lst->wid * 10 + (fmt[(*i)++] - '0');
 	if (fmt[*i] == '.')
 	{
-		lst->sign = -10;
+		lst->zero_flag = 1;
 		(*i)++;
 		while (ft_isdigit(fmt[*i]))
 			lst->pre = lst->pre * 10 + (fmt[(*i)++] - '0');

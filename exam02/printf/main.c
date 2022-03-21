@@ -10,6 +10,8 @@ int main(void)
 //	PRINT(" --- Return : %d\n", PRINT("%7s%-5s", "hello", "world"));
 	
 	PRINT(" --- Return : %d\n", PRINT("hello, %s", NULL));
+	PRINT(" --- Return : %d\n", PRINT("%10.5d", -216));
+	PRINT(" --- Return : %d\n", PRINT("%.0d", 0));
 
 	
 	/*
