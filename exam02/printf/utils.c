@@ -88,3 +88,9 @@ void ft_hex(t_lst *lst, unsigned int h)
 	hex = ft_dtoh(h, "0123456789abcdef", &i);
 	ft_write_str(lst, hex);
 }
+
+void ft_str(t_lst *lst, char *s)
+{
+	ft_write_str(lst, s);
+}
+
