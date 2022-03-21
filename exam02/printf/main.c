@@ -9,10 +9,12 @@ int main(void)
 //simple
 //	PRINT(" --- Return : %d\n", PRINT("%7s%-5s", "hello", "world"));
 	
-	PRINT(" --- Return : %d\n", PRINT("hello, %s", NULL));
-	PRINT(" --- Return : %d\n", PRINT("%10.5d", -216));
-	PRINT(" --- Return : %d\n", PRINT("%.0d", 0));
-
+//	PRINT(" --- Return : %d\n", PRINT("hello, %s", NULL));
+//	PRINT(" --- Return : %d\n", PRINT("%10.5d", -216));
+//	PRINT(" --- Return : %d\n", PRINT("%.0d", 0));
+//	PRINT(" --- Return : %d\n", PRINT("%.3s", "hello"));
+	PRINT(" --- Return : %d\n", PRINT("%5.0d", 0));
+	PRINT(" --- Return : %d\n", PRINT("%5.d", 0));
 	
 	/*
 	PRINT(" --- Return : %d\n", PRINT("%"));
