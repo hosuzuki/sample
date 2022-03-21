@@ -159,8 +159,11 @@ void ft_str(t_lst *lst, char *s)
 	int space;
 	int word;
 	int i = 0;
-
+	char null[7] = "(null)";
+	
 	len = ft_strlen(s);
+	if (len == -1)
+		len = 6;
 	if (lst->pre < len && lst->sign == -10)
 		word = lst->pre;
 	else
@@ -171,18 +174,31 @@ void ft_str(t_lst *lst, char *s)
 		ft_write_char(lst, ' ');
 		space--;
 	}
-	while (i < word)
-		ft_write_char(lst, s[i++]);
+	if (s == NULL)
+		while (i < word)
+			ft_write_char(lst, null[i++]);
+	else
+		while (i < word)
+			ft_write_char(lst, s[i++]);
 }
+
 void ft_speci(const char *fmt, t_lst *lst, int *i)
 {
 	if (fmt[*i] == 'd')
+	{
 		ft_deci(lst, va_arg(lst->args, int));
- 	else if (fmt[*i] == 'x')
+		(*i)++;
+	}
+	else if (fmt[*i] == 'x')
+	{
 		ft_hex(lst, va_arg(lst->args, unsigned int));
+		(*i)++;
+	}
 	else if (fmt[*i] == 's')
+	{
 		ft_str(lst, va_arg(lst->args, char *));
-	(*i)++;
+		(*i)++;
+	}
 }
 
 void	ft_save_flags(const char *fmt, t_lst *lst, int *i)
@@ -224,7 +240,7 @@ int	ft_print_out(const char *fmt, t_lst *lst)
 		}
 		else
 			ft_write_char(lst, fmt[i++]);
-		if (lst->status == 1)
+		if (lst->status == -1)
 			return (-1);
 	}
 	return ((int)lst->len);

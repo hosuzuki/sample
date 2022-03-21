@@ -1,10 +1,21 @@
 #include <limits.h>
 #include <stdio.h>
-#include "ft_printf.h"
+//#include "ft_printf.h"
+
+int	ft_printf(const char *fmt, ...);
 
 int main(void)
 {
 //simple
+//	PRINT(" --- Return : %d\n", PRINT("%7s%-5s", "hello", "world"));
+	
+	PRINT(" --- Return : %d\n", PRINT("hello, %s", NULL));
+
+	
+	/*
+	PRINT(" --- Return : %d\n", PRINT("%"));
+	PRINT(" --- Return : %d\n", PRINT("%5"));
+	PRINT(" --- Return : %d\n", PRINT("%05"));
 	PRINT(" --- Return : %d\n", PRINT("[%d]\n", -12));
 	PRINT(" --- Return : %d\n", PRINT("[%d]\n", 12));
 	PRINT(" --- Return : %d\n", PRINT("[%x]\n", 0));
@@ -38,7 +49,7 @@ int main(void)
 	PRINT(" --- Return : %d\n", PRINT("[%12.4s]\n", "hello"));
 	PRINT(" --- Return : %d\n", PRINT("[%12.12s]\n", "world"));
 	PRINT(" --- Return : %d\n", PRINT("[%10.20s]\n", "hello!!"));
-	
+*/	
 
 	
 //	system("leaks ft.out");
