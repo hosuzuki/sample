@@ -23,5 +23,6 @@ void ft_write_str(t_lst *lst, char *str);
 void ft_write_char(t_lst *lst, int c);
 void ft_deci(t_lst *lst, int d);
 void ft_hex(t_lst *lst, unsigned int h);
+void ft_str(t_lst *lst, char *s);
 
 #endif

@@ -49,7 +49,7 @@ void	ft_itoa(char *deci, int d, int *i)
 	}
 	else if (d < 0)
 	{
-		deci[(*i)++] = '-';
+//		deci[(*i)++] = '-';
 		ft_itoa(deci, -d, i);
 	}
 	else if (9 < d)
@@ -65,32 +65,90 @@ void ft_deci(t_lst *lst, int d)
 {
 	char deci[15] = {'\0'};
 	int i = 0;
+	int len = 0;
 
 	ft_itoa(deci, d, &i);
+	if (d < 0)
+	{
+		lst->sign = -1;
+		i++;
+	}
+	len = i;
+	if (len < lst->wid)
+		len = lst->wid;
+	if (len < lst->pre)
+		len = lst->pre;
+	while (i < len)
+	{
+		if (0 <= lst->pre && len <= lst->pre)
+		{
+			if (lst->sign == -1)
+			{
+				ft_write_char(lst, '-');
+				lst->sign = 0;
+				len++;
+			}
+			ft_write_char(lst, '0');
+		}
+		else 
+			ft_write_char(lst, ' ');
+		len--;
+	}
+	if (lst->sign == -1)
+		ft_write_char(lst, '-');
 	ft_write_str(lst, deci);
 }
 
-char *ft_dtoh(unsigned int h, char *base, size_t *i)
+void	ft_dtoh(char *res, unsigned int h, char *base, int *i)
 {
-	static char res[10] = {'\0'};
 
 	if (16 <= h)
-		ft_dtoh(h / 16, base, i);
+		ft_dtoh(res, h / 16, base, i);
 	res[(*i)++] = base[h % 16];
-	return (res);
 }
 
 void ft_hex(t_lst *lst, unsigned int h)
 {
-	size_t i = 0;
-	char *hex;
+	int i = 0;
+	//char *hex;
+	int len;
+	char res[10] = {'\0'};
 
-	hex = ft_dtoh(h, "0123456789abcdef", &i);
-	ft_write_str(lst, hex);
+	ft_dtoh(res, h, "0123456789abcdef", &i);
+	len = i;
+	if (len < lst->wid)
+		len = lst->wid;
+	if (len < lst->pre)
+		len = lst->pre;
+	while (i < len)
+	{
+		if (0 <= lst->pre && len <= lst->pre)
+			ft_write_char(lst, '0');
+		else 
+			ft_write_char(lst, ' ');
+		len--;
+	}
+	ft_write_str(lst, res);
 }
 
 void ft_str(t_lst *lst, char *s)
 {
-	ft_write_str(lst, s);
-}
+	int len;
+	int space;
+	int word;
+	int i = 0;
 
+	len = ft_strlen(s);
+	if (lst->pre < len && lst->sign == -10)
+		word = lst->pre;
+	else
+		word = len;
+	space = lst->wid - word;
+	while (0 < space)
+	{
+		ft_write_char(lst, ' ');
+		space--;
+	}
+	while (i < word)
+		ft_write_char(lst, s[i++]);
+}

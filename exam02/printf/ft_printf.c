@@ -14,17 +14,18 @@ void ft_speci(const char *fmt, t_lst *lst, int *i)
 void	ft_save_flags(const char *fmt, t_lst *lst, int *i)
 {
 	lst->sign = 1;
-	lst->wid = -1;
-	lst->pre  = -1;
+	lst->wid = 0;
+	lst->pre  = 0;
 	while (ft_isdigit(fmt[*i]))
 		lst->wid = lst->wid * 10 + (fmt[(*i)++] - '0');
 	if (fmt[*i] == '.')
 	{
+		lst->sign = -10;
 		(*i)++;
 		while (ft_isdigit(fmt[*i]))
 			lst->pre = lst->pre * 10 + (fmt[(*i)++] - '0');
-		if (lst->pre == -1)
-			lst->pre = 0; // check
+//		if (lst->pre == -1)
+//			lst->pre = 0; // check
 	}
 }
 
