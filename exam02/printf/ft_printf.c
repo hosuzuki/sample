@@ -71,10 +71,7 @@ void	ft_itoa(char *deci, int d, int *i)
 		deci[(*i)++] = '8';
 	}
 	else if (d < 0)
-	{
-//		deci[(*i)++] = '-';
 		ft_itoa(deci, -d, i);
-	}
 	else if (9 < d)
 	{
 		ft_itoa(deci, d / 10, i);
@@ -103,19 +100,6 @@ int	ft_space_deci(t_lst *lst, int i)
 				ret--;
 		}
 	}
-/*
-	if (i < lst->wid)
-	{
-		if (0 < lst->pre && 0 < (lst->wid - lst->pre)	&& lst->sign == -1)
-			ret = lst->wid - lst->pre - 1;
-		else if (0 < lst->pre && i < lst->pre)
-			ret = lst->wid - lst->pre;
-		else
-			ret = lst->wid - i;
-	}
-	else if (0 < lst->pre && lst->pre < lst->wid && i < lst->wid)
-		ret = lst->wid - lst->pre;
-*/
 	return (ret);
 }
 
@@ -128,16 +112,6 @@ int	ft_zero_deci(t_lst *lst, int i, int space)
 		ret = lst->pre - i;
 	else if (i < lst->pre && lst->pre < lst->wid)
 		ret = lst->pre - i;
-
-/*
- 	if (lst->sign == -1)
-		i--;
-	if (lst->wid <= lst->pre)
-		ret = lst->pre - i;
-	else
-	 	ret =  lst->wid - space - i;
-
-	*/
 	return (ret);
 }
 
@@ -151,11 +125,7 @@ void ft_deci(t_lst *lst, int d)
 
 	ft_itoa(deci, d, &i);
 	if (d < 0)
-	{
 		lst->sign = -1;
-//		if (lst->pre < lst->wid)
-//		i++;
-	}
 	if (lst->pre < lst->wid)
 	{
 		space = ft_space_deci(lst, i);
@@ -182,56 +152,8 @@ void ft_deci(t_lst *lst, int d)
 	ft_write_str(lst, deci);
 }
 
-/*
-void ft_deci(t_lst *lst, int d)
-{
-	char deci[15] = {'\0'};
-	int i = 0;
-	int len = 0;
-
-	ft_itoa(deci, d, &i);
-	if (d < 0)
-	{
-		lst->sign = -1;
-		if (lst->pre < lst->wid)
-			i++;
-	}
-	len = i;
-	if (len < lst->wid)
-		len = lst->wid;
-	if (len < lst->pre)
-		len = lst->pre;
-	while (i < len)
-	{
-		if (0 <= lst->pre && len <= lst->pre)
-		{
-			if (lst->sign == -1)
-			{
-				ft_write_char(lst, '-');
-				lst->sign = 0;
-				len--;
-			}
-			ft_write_char(lst, '0');
-		}
-		else 
-			ft_write_char(lst, ' ');
-		len--;
-	}
-	if (lst->sign == -1)
-		ft_write_char(lst, '-');
-	if (0 < lst->wid && deci[0] == '0' && lst->pre == 0 && lst->pre_flag == 1)
-	{
-		ft_write_char(lst, ' ');
-		return ;
-	}
-//	else if (i == 1 && deci[0] == '0')
-//		return ;
-	ft_write_str(lst, deci);
-}
-*/
 void	ft_dtoh(char *res, unsigned int h, char *base, int *i)
 {
-
 	if (16 <= h)
 		ft_dtoh(res, h / 16, base, i);
 	res[(*i)++] = base[h % 16];
@@ -240,7 +162,6 @@ void	ft_dtoh(char *res, unsigned int h, char *base, int *i)
 void ft_hex(t_lst *lst, unsigned int h)
 {
 	int i = 0;
-	//char *hex;
 	int len;
 	char res[10] = {'\0'};
 
@@ -323,8 +244,6 @@ void	ft_save_flags(const char *fmt, t_lst *lst, int *i)
 		(*i)++;
 		while (ft_isdigit(fmt[*i]))
 			lst->pre = lst->pre * 10 + (fmt[(*i)++] - '0');
-//		if (lst->pre == -1)
-//			lst->pre = 0; // check
 	}
 }
 
