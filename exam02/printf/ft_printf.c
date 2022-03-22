@@ -84,6 +84,76 @@ void	ft_itoa(char *deci, int d, int *i)
 		deci[(*i)++] = d + '0';
 }
 
+int	ft_space_deci(t_lst *lst, int i)
+{
+	int ret = 0;
+
+	if (i < lst->wid)
+	{
+		if (0 < lst->pre && 0 < (lst->wid - lst->pre)	&& lst->sign == -1)
+			ret = lst->wid - (lst->wid - lst->pre);
+		else if (0 < lst->pre && i < lst->pre)
+			ret = lst->wid - lst->pre;
+		else
+			ret = lst->wid - i;
+	}
+	else if (0 < lst->pre && lst->pre < lst->wid && i < lst->wid)
+		ret = lst->wid - lst->pre;
+	return (ret);
+}
+
+int	ft_zero_deci(t_lst *lst, int i, int space)
+{
+	int ret = 0;
+	
+//	if (lst->sign == -1)
+//		i--;
+	if (lst->wid <= lst->pre)
+		ret = lst->pre - i;
+	else
+	 	ret =  lst->wid - space - i;
+	return (ret);
+}
+
+void ft_deci(t_lst *lst, int d)
+{
+	char deci[15] = {'\0'};
+	int i = 0;
+	int j = 0;
+	int space = 0;
+	int zero = 0;
+
+	ft_itoa(deci, d, &i);
+	if (d < 0)
+	{
+		lst->sign = -1;
+//		if (lst->pre < lst->wid)
+		i++;
+	}
+	if (lst->pre < lst->wid)
+	{
+		space = ft_space_deci(lst, i);
+		while (j++ < space)
+			ft_write_char(lst, ' ');
+	}
+	if (lst->sign == -1)
+		ft_write_char(lst, '-');
+	j = 0;
+	if (0 < lst->pre)
+	{
+		zero = ft_zero_deci(lst, i, space);
+		while (j++ < zero)
+			ft_write_char(lst, '0');
+	}
+	if (0 < lst->wid && d == 0 && lst->pre == 0 && lst->pre_flag == 1)
+	{
+		ft_write_char(lst, ' ');
+		return ;
+	}
+	ft_write_str(lst, deci);
+}
+
+/*
 void ft_deci(t_lst *lst, int d)
 {
 	char deci[15] = {'\0'};
@@ -129,7 +199,7 @@ void ft_deci(t_lst *lst, int d)
 //		return ;
 	ft_write_str(lst, deci);
 }
-
+*/
 void	ft_dtoh(char *res, unsigned int h, char *base, int *i)
 {
 
