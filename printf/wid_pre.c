@@ -34,19 +34,23 @@ int main(void)
 	printf("[%0d]\n", 0);
 	printf("[%.d]\n", 0);
 	printf("[%.0d]\n", 0);
+	printf("[%0.0d]\n", 0);
 	printf("[%5d]\n", 0);
 	printf("[%.5d]\n", 0);
 	printf("[%3.5d]\n", 0);
 	printf("[%5.3d]\n", 0);
+	printf("[%10.0d]\n", 0);
 
 	printf("[%d]\n", -0);
 	printf("[%0d]\n", -0);
 	printf("[%.d]\n", -0);
 	printf("[%.0d]\n", -0);
+	printf("[%0.0d]\n", -0);
 	printf("[%5d]\n", -0);
 	printf("[%.5d]\n", -0);
 	printf("[%3.5d]\n", -0);
 	printf("[%5.3d]\n", -0);
+	printf("[%10.0d]\n", 0);
 
 
 	/*
