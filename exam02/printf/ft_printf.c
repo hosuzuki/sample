@@ -88,10 +88,26 @@ int	ft_space_deci(t_lst *lst, int i)
 {
 	int ret = 0;
 
+	if (i < lst->wid && lst->pre < lst->wid)
+	{
+		if (i < lst->pre)
+		{
+			ret = lst->wid - lst->pre;
+			if (lst->sign == -1)
+				ret--;
+		}
+		else 
+		{
+			ret = lst->wid - i;
+			if (lst->sign == -1)
+				ret--;
+		}
+	}
+/*
 	if (i < lst->wid)
 	{
 		if (0 < lst->pre && 0 < (lst->wid - lst->pre)	&& lst->sign == -1)
-			ret = lst->wid - (lst->wid - lst->pre);
+			ret = lst->wid - lst->pre - 1;
 		else if (0 < lst->pre && i < lst->pre)
 			ret = lst->wid - lst->pre;
 		else
@@ -99,19 +115,29 @@ int	ft_space_deci(t_lst *lst, int i)
 	}
 	else if (0 < lst->pre && lst->pre < lst->wid && i < lst->wid)
 		ret = lst->wid - lst->pre;
+*/
 	return (ret);
 }
 
 int	ft_zero_deci(t_lst *lst, int i, int space)
 {
 	int ret = 0;
-	
-//	if (lst->sign == -1)
-//		i--;
+
+	(void)space;
+	if (i < lst->pre && lst->wid <= lst->pre)
+		ret = lst->pre - i;
+	else if (i < lst->pre && lst->pre < lst->wid)
+		ret = lst->pre - i;
+
+/*
+ 	if (lst->sign == -1)
+		i--;
 	if (lst->wid <= lst->pre)
 		ret = lst->pre - i;
 	else
 	 	ret =  lst->wid - space - i;
+
+	*/
 	return (ret);
 }
 
@@ -128,7 +154,7 @@ void ft_deci(t_lst *lst, int d)
 	{
 		lst->sign = -1;
 //		if (lst->pre < lst->wid)
-		i++;
+//		i++;
 	}
 	if (lst->pre < lst->wid)
 	{
@@ -145,9 +171,12 @@ void ft_deci(t_lst *lst, int d)
 		while (j++ < zero)
 			ft_write_char(lst, '0');
 	}
-	if (0 < lst->wid && d == 0 && lst->pre == 0 && lst->pre_flag == 1)
+	if (d == 0 && lst->pre == 0 && lst->pre_flag == 1)
 	{
-		ft_write_char(lst, ' ');
+		if (0 < lst->wid)
+			 ft_write_char(lst, ' ');
+		else
+			 ft_write_str(lst, "");
 		return ;
 	}
 	ft_write_str(lst, deci);

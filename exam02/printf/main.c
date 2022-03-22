@@ -11,10 +11,13 @@ int main(void)
 	
 //	PRINT(" --- Return : %d\n", PRINT("hello, %s", NULL));
 //	PRINT(" --- Return : %d\n", PRINT("%10.5d", -216));
-//	PRINT(" --- Return : %d\n", PRINT("%.0d", 0));
+	PRINT(" --- Return : %d\n", PRINT("%.d", 0));
+	PRINT(" --- Return : %d\n", PRINT("%.0d", 0));
+	PRINT(" --- Return : %d\n", PRINT("%10.0d", 0));
 //	PRINT(" --- Return : %d\n", PRINT("%.3s", "hello"));
-	PRINT(" --- Return : %d\n", PRINT("%10.5d", -216));
-	PRINT(" --- Return : %d\n", PRINT("%7d", -14));
+//	PRINT(" --- Return : %d\n", PRINT("%10.5d", -216));
+//	PRINT(" --- Return : %d\n", PRINT("%.6d", -3));
+//	PRINT(" --- Return : %d\n", PRINT("%7d", -14));
 //	PRINT(" --- Return : %d\n", PRINT("%7d", 33));
 //	PRINT(" --- Return : %d\n", PRINT("%.6d", -3));
 //	PRINT(" --- Return : %d\n", PRINT("%5.0d", 0));
