@@ -1,5 +1,8 @@
 #include "fract.h"
 
+#include <stdio.h>
+#include <stdlib.h>
+
 void my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
 	char	*dst;
@@ -8,6 +11,32 @@ void my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
+void	press_esc_key(int key, void *p)
+{
+	(void)p;
+	if (key == 0xFF1B)
+		exit(0);
+}
+
+void	key_check(int key,void *p)
+{
+	(void)p;
+  printf("Key in Win : %d\n",key);
+  if (key==0xFF1B)
+    exit(0);
+}
+
+int main()
+{
+	void	*mlx_ptr;
+	void	*win_ptr;
+
+	mlx_ptr = mlx_init();
+	win_ptr = mlx_new_window(mlx_ptr, 500, 500, "mlx_test");
+	mlx_key_hook(win_ptr, press_esc_key, win_ptr);
+	mlx_loop(mlx_ptr);
+}
+/*
 int main(void)
 {
   void	  *mlx;
@@ -45,6 +74,8 @@ int main(void)
   mlx_loop(mlx);
   return (0);
 }
+*/
+
 /*
 int create_trgb(int t, int r, int g, int b)
 {
