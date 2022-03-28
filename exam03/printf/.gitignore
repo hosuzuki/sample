@@ -1,0 +1,8 @@
+pft_exam/
+libftprintf.a
+mains/
+utils.c
+ft_printf.h
+ft_printf1.c
+.dev/
+dev.c
