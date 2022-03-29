@@ -3,9 +3,11 @@ CC = gcc
 FLAGS = -Wall -Werror -Wextra 
 LIB = ./libft/libft.a
 MLX = ./minilibx-linux/libmlx.a
-LIBRARIES = -L/usr/X11R6/lib  -lmlx -lX11 -lXext -framework OpenGL -framework AppKit -L ./libft/ -L ./minilibx-linux/
+LIBRARIES = -L/usr/X11R6/lib  -lmlx -lX11 -lXext -framework OpenGL -framework AppKit -L ./minilibx-linux/
 
-SRC = ./srcs/circle.c 
+#-L ./libft/ -L ./minilibx-linux/
+
+SRC = ./srcs/event.c 
 
 GREEN = \033[0;32m
 RED = \033[0;31m
@@ -17,7 +19,7 @@ RM = rm -f
 all : $(NAME)
 
 $(NAME) : $(LIB) $(MLX) $(OBJ)
-	$(CC) $(FLAGS) $(OBJ) $(LIBRARIES) -o $(NAME)
+	$(CC) $(FLAGS) $(OBJ) $(LIBRARIES) $(LIB) $(MLX) -o $(NAME)
 	@echo "$(NAME): $(GREEN)object files were created$(RESET)"
 	@echo "$(NAME): $(GREEN)$(NAME) was created$(RESET)"
 
