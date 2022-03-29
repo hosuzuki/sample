@@ -7,7 +7,7 @@ LIBRARIES = -L/usr/X11R6/lib  -lmlx -lX11 -lXext -framework OpenGL -framework Ap
 
 #-L ./libft/ -L ./minilibx-linux/
 
-SRC = ./srcs/event.c 
+SRC = ./srcs/img.c 
 
 GREEN = \033[0;32m
 RED = \033[0;31m
