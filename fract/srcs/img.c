@@ -12,27 +12,54 @@ int mouse_event(int button, int x, int y, void *param)
 	return (1);
 }
 
+int handle_keypress(int keysym, t_data *data)
+{
+	if (keysym == XK_Escape)
+	{
+		mlx_destroy_window(data->mlx, data->win);
+		data->win = NULL;
+	}
+	return (0);
+}
+
+int render(t_data * data)
+{
+	if (data->win != NULL)
+		mlx_pixel_put(data->mlx, data->win, 640 / 2, 360 / 2, 0xFF0000);
+	return (0);
+}
+
 int main(void)
 {
-	t_data img;
+	t_data data;
 	
-	void *mlx = mlx_init();
-	void *win = mlx_new_window(mlx, 640, 360, "Event");
-	void *img1 = mlx_new_image(mlx, 640, 360);
-	img.mlx = mlx;
-	img.win = win;
-	img.img = img1;
+	data.mlx = mlx_init();
+	if (data.mlx == NULL)
+		return (1);
+	data.win = mlx_new_window(data.mlx, 640, 360, "window");
+	if (data.win == NULL)
+	{
+		free (data.mlx);
+		return (1);
+	}
+	data.img = mlx_new_image(mlx, 640, 360);
 //	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
 
-	int *buffer = (int *)mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
-	img.line_length /= 4;
+/*
+ * int *buffer = (int *)mlx_get_data_addr(data.img, &data.bits_per_pixel, &data.line_length, &data.endian);
+	data.line_length /= 4;
 	int color = 0xABCDEF;
 
 	for(int y = 0; y < 360; ++y)
 	for(int x = 0; x < 640; ++x)
 	{
-		buffer[(y * img.line_length) + x] = color;
+		buffer[(y * data.line_length) + x] = color;
 	}
+*/
+	mlx_loop_hook(data.mlx, &render, &data);
+//	mlx_hook(data.win, KeyPress, KeyPressMask, &handle_keypress, &data);
+	mlx_loop(data.mlx);
+
 /*
 	int color = 0xABCDEF;
 	if (img.bits_per_pixel != 32)
@@ -58,10 +85,13 @@ int main(void)
 		}
 	}
 */
-  	mlx_put_image_to_window(mlx, win, img.img, 0, 0);
+//  	mlx_put_image_to_window(mlx, win, data.img, 0, 0);
 
-
-	mlx_mouse_hook(win, &mouse_event, &img);
-	mlx_loop(mlx);
+//	while (1)
+//	mlx_mouse_hook(win, &mouse_event, &img);
+//	mlx_loop(mlx);
+//	mlx_destroy_window(mlx, win);
+	mlx_destroy_display(data.mlx);
+	free(data.mlx);
 }
 
