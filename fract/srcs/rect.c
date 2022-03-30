@@ -1,5 +1,6 @@
 #include "fract.h"
 #include "keycode_mac.h"
+#include <stdio.h>
 
 void	img_pix_put(t_data *data, int x, int y, int color)
 {
@@ -53,10 +54,8 @@ void	render_background(t_data *data, int color)
 	}
 }
 
-int	keypress(int keysym, t_data *data)
-//int	keypress(t_data *data)
+int	key_hook(int keysym, t_data *data)
 {
-//	(void)keysym;
 	if (keysym == KEY_ESC)
 	{
 		mlx_destroy_window(data->mlx, data->win);
@@ -73,7 +72,6 @@ int	render(t_data *data)
 	render_rect(data, (t_rect){WIDTH - 100, HEIGHT - 100, 100, 100, GREEN_PIXEL});
 	render_rect(data, (t_rect){0, 0, 100, 100, RED_PIXEL});
 	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
-
 	return (0);
 }
 
@@ -94,7 +92,7 @@ int	main(void)
 	data.addr = mlx_get_data_addr(data.img, &data.bpp, &data.line_len, &data.endian);
 	mlx_loop_hook(data.mlx, &render, &data);
 
-	mlx_hook(data.win, 2, 1L<<0, keypress, &data);
+	mlx_hook(data.win, 2, 1L<<0, key_hook, &data);
 //	mlx_hook(data.win, ON_DESTORY, 0, &keypress, &data);
 
 	mlx_loop(data.mlx);
