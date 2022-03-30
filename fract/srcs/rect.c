@@ -1,11 +1,12 @@
 #include "fract.h"
+#include "keycode_mac.h"
 
 void	img_pix_put(t_data *data, int x, int y, int color)
 {
 	char    *pixel;
 	int		i;
 
-	i = img->bpp - 8;
+	i = data->bpp - 8;
     pixel = data->addr + (y * data->line_len + x * (data->bpp / 8));
 	while (i >= 0)
 	{
@@ -52,9 +53,11 @@ void	render_background(t_data *data, int color)
 	}
 }
 
-int	handle_keypress(int keysym, t_data *data) //
+int	keypress(int keysym, t_data *data)
+//int	keypress(t_data *data)
 {
-	if (keysym == XK_Escape) //
+//	(void)keysym;
+	if (keysym == KEY_ESC)
 	{
 		mlx_destroy_window(data->mlx, data->win);
 		data->win = NULL;
@@ -69,7 +72,6 @@ int	render(t_data *data)
 	render_background(data, WHITE_PIXEL);
 	render_rect(data, (t_rect){WIDTH - 100, HEIGHT - 100, 100, 100, GREEN_PIXEL});
 	render_rect(data, (t_rect){0, 0, 100, 100, RED_PIXEL});
-
 	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
 
 	return (0);
@@ -92,10 +94,11 @@ int	main(void)
 	data.addr = mlx_get_data_addr(data.img, &data.bpp, &data.line_len, &data.endian);
 	mlx_loop_hook(data.mlx, &render, &data);
 
-	mlx_hook(data.win, KeyPress, KeyPressMask, &handle_keypress, &data);
+	mlx_hook(data.win, 2, 1L<<0, keypress, &data);
+//	mlx_hook(data.win, ON_DESTORY, 0, &keypress, &data);
 
 	mlx_loop(data.mlx);
 	mlx_destroy_image(data.mlx, data.img);
 	mlx_destroy_display(data.mlx);
-	free(data.mlx_ptr);
+	free(data.mlx);
 }
