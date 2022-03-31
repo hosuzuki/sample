@@ -4,13 +4,18 @@
 # include "../minilibx-linux/mlx.h"
 # include "../libft/includes/libft.h"
 
-#define WIDTH 600
-#define HEIGHT 300
+#define WIDTH 1200
+#define HEIGHT 1200
 #define ERROR 1
 
-#define RED_PIXEL 0xFF0000
-#define GREEN_PIXEL 0x00FF00
-#define WHITE_PIXEL 0xFFFFFF
+#define RED_PIXEL 0x00FF0000
+#define GREEN_PIXEL 0x0000FF00
+#define BLUE_PIXEL 0x000000FF
+#define WHITE_PIXEL 0x00FFFFFF
+
+//#define  XMAX  600                                      // ｳｨﾝﾄﾞｳ Xmax
+//#define  YMAX  300                                      // ｳｨﾝﾄﾞｳ Ymax
+
 
 /*
 typedef struct s_data
