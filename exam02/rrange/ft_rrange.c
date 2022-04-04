@@ -1,33 +1,38 @@
 #include <stdlib.h>
 
+int		ft_abs(int x)
+{
+	if (x < 0)
+		return (-x);
+	return (x);
+}
+
 int	*ft_rrange(int start, int end)
 {
-	long long len;
+//	long long len;
 	int *res;
 	int i = 0;
 
-	len = end - start;
+/*
+len = end - start;
 	if (len < 0)
 		len *= -1;
 	len++;
-	res = (int *)malloc(sizeof(int) * len);
+*/
+	res = (int *)malloc(sizeof(int) * ft_abs(end - start) + 1);
 	if (!res)
 		return (NULL);
-	if (start < end)
+	if (start == end)
+		res[i] = start;
+	else if (start < end)
 	{
-		while (i < len)
-		{
-			res[i] = end - i;
-			i++;
-		}
+		while (start <= end)
+			res[i++] = end--;
 	}
 	else
 	{
-		while (i < len)
-		{
-			res[i] = end + i;
-			i++;
-		}
+		while (start >= end)
+			res[i++] = end++;
 	}
 	return (res);
 }
@@ -39,9 +44,9 @@ int main(void)
 {
  int *res;
 
- res = ft_rrange(-10, -15);
+ res = ft_rrange(-3, 0);
  int i = 0;
- while (i < 6)
+ while (i < 4)
 	 printf("%d\n", res[i++]);
  return (0);
 }
