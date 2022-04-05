@@ -22,7 +22,7 @@ int	ft_atoi(char *str)
 	return (result * sign);
 }
 
-int		main(void)
+int	main(void)
 {
 	printf("%d\n", ft_atoi("123321"));
 	return (0);
