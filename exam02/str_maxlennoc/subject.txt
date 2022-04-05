@@ -1,0 +1,30 @@
+Assignment name: str_maxlenoc
+Expected files: str_maxlenoc.c
+Allowed functions: write, malloc, free
+-------------------------------------------------- ------------------------------
+
+Write a program that takes n character strings as parameters and that
+displays, followed by a newline, the largest character string
+included in all strings passed as parameters. If multiple strings
+correspond, we will display the one that appears first in the first
+setting. Note that "" is necessarily in all strings.
+
+If no parameter is passed, the program should display
+'\not'.
+
+Let A and B be character strings. We say that A
+is included in B if A is a substring of B or
+if A and B are the same.
+
+Exemples :
+$>./str_maxlenoc ab bac abacabccabcb
+a
+$>./str_maxlenoc bonjour salut bonjour bonjour
+u
+$>./str_maxlenoc xoxAoxo xoxAox  oxAox oxo  A ooxAoxx oxooxo Axo | cat -e
+$
+$>./str_maxlenoc bosdsdfnjodur atehhellosd afkuonjosurafg headfgllosf fghellosag afdfbosnjourafg
+os
+$>./str_maxlenoc | cat -e
+$
+
