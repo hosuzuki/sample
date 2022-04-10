@@ -61,6 +61,7 @@ int ft_read(char **buf)
 		if (rc == -1)
 		{
 			free (b);
+		//	free (*buf);
 			return (-1);
 		}
 		else if (rc == 0)

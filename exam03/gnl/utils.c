@@ -3,8 +3,9 @@
 char	*ft_strchar(char *str, int c)
 {
 	size_t	i = 0;
+
 	if (str == NULL)
-		return (0);
+		return (NULL);
 	while (str[i])
 	{
 		if(str[i] == (char)c)
@@ -16,9 +17,10 @@ char	*ft_strchar(char *str, int c)
 
 size_t ft_strlen(char	*str)
 {
+	size_t i = 0;
+	
 	if (str == NULL)
 		return (0);
-	size_t i = 0;
 	while(str[i])
 		i++;
 	return (i);
@@ -61,7 +63,7 @@ char	*ft_strjoin(char	*buf, char *b)
 char	*ft_strndup(char *str, size_t len)
 {
 	char	*new;
-	size_t i =0;
+	size_t i = 0;
 
 	new = (char *)malloc(sizeof(char) * (len + 1));
 	if (!new)
