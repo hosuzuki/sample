@@ -1,0 +1,13 @@
+When you've reached the End Of File, 
+you must store the current buffer in "line".
+If the buffer is empty
+  you must store an empty string in "line".
+
+When you've reached the End Of File,
+your function should keep 0 memory allocated with malloc 
+except the last buffer that you should have stored in "line".
+
+Make sure that your function behaves well when 
+it reads from a file, 
+from the standard output, 
+from a redirection etc.
