@@ -6,7 +6,7 @@
 /*   By: hokutosuzuki <hosuzuki@student.42toky      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 07:58:18 by hokutosuz         #+#    #+#             */
-/*   Updated: 2022/04/07 11:46:35 by hokutosuz        ###   ########.fr       */
+/*   Updated: 2022/04/21 20:19:42 by hokutosuz        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ static void	ft_update_fractal(t_data *data)
 	mlx_mouse_get_pos(data->mlx, data->win, &x, &y);
 	if (!x || !y)
 		return ;
+	//cp as complex number.
+	//change pixel to complex number
 	x_cp = ((data->max_r - data->min_r) * (double)x)
 		/ (double)WIDTH + data->min_r;
 	y_cp = ((data->max_i - data->min_i) * (double)y)
