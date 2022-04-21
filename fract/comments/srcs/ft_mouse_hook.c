@@ -6,7 +6,7 @@
 /*   By: hokutosuzuki <hosuzuki@student.42toky      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 07:58:18 by hokutosuz         #+#    #+#             */
-/*   Updated: 2022/04/21 20:31:08 by hokutosuz        ###   ########.fr       */
+/*   Updated: 2022/04/21 21:54:00 by hokutosuz        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	ft_mouse_hook(int button, int x, int y, t_data *data)
 
 	if (button == SCROLL_UP || button == SCROLL_DOWN)
 	{
-		//change pixel to complex number;
+		//change pixel(got from mouse's position) to complex number;
 		x_cp = ((data->max_r - data->min_r) * (double)x)
 			/ (double)WIDTH + data->min_r;
 		y_cp = ((data->max_i - data->min_i) * (double)y)
