@@ -6,7 +6,7 @@
 /*   By: hokutosuzuki <hosuzuki@student.42toky      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 07:58:16 by hokutosuz         #+#    #+#             */
-/*   Updated: 2022/04/21 15:16:37 by hokutosuz        ###   ########.fr       */
+/*   Updated: 2022/04/21 21:28:28 by hokutosuz        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static unsigned int	ft_pick_color_bs(t_data *data)
 	while (pow(data->z_r, 2.0) + pow(data->z_i, 2.0) <= 4 && i < data->max_it)
 	{
 		tmp_r = pow(data->z_r, 2.0) - pow(data->z_i, 2.0) + data->c_r;
+		//get abs
 		data->z_i = fabs(2 * (double)data->z_r * (double)data->z_i) + data->c_i;
 		data->z_r = tmp_r;
 		i++;
