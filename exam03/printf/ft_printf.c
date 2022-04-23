@@ -193,7 +193,7 @@ void ft_str(t_lst *lst, char *s)
 	char null[7] = "(null)";
 
 	if (!s)
-		len = 6
+		len = 6;
 	else
 		len = ft_strlen(s);
 	//	len = ft_strlen(s);
