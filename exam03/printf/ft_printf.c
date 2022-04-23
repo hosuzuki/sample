@@ -32,7 +32,8 @@ size_t ft_strlen(char *str)
 {
 	size_t i = 0;
 	if (!str)
-		return (-1);
+	//	return (-1);
+		return (0);
 	while (str[i])
 		i++;
 	return (i);
@@ -190,10 +191,14 @@ void ft_str(t_lst *lst, char *s)
 	int word;
 	int i = 0;
 	char null[7] = "(null)";
-	
-	len = ft_strlen(s);
-	if (len == -1)
-		len = 6;
+
+	if (!s)
+		len = 6
+	else
+		len = ft_strlen(s);
+	//	len = ft_strlen(s);
+//	if (len == -1)
+//		len = 6;
 	if (lst->pre < len && lst->pre_flag == 1)
 		word = lst->pre;
 	else
