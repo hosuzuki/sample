@@ -23,7 +23,7 @@ void ft_deci(t_lst *lst, int d);
 void ft_hex(t_lst *lst, unsigned int h);
 void ft_str(t_lst *lst, char *s);
 
-int	ft_isdigit(int	c)
+int	ft_isdigit(int c)
 {
 	return ('0' <= c && c <= '9');
 }
