@@ -173,7 +173,8 @@ void ft_hex(t_lst *lst, unsigned int h)
 		len = lst->pre;
 	while (i < len)
 	{
-		if (0 <= lst->pre && len <= lst->pre)
+//		if (0 <= lst->pre && len <= lst->pre)
+		if (lst->pre_flag == 1 && len <= lst->pre)
 			ft_write_char(lst, '0');
 		else 
 			ft_write_char(lst, ' ');
