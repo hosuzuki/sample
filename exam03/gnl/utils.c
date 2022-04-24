@@ -15,6 +15,18 @@ char	*ft_strchar(char *str, int c)
 	return (NULL);
 }
 
+char	*ft_strchr(const char *s, int c)
+{
+	size_t	i;
+
+	i = 0;
+	while (s[i] != (char)c && s[i] != '\0')
+		i++;
+	if (s[i] == (char)c)
+		return ((char *)&s[i]);
+	return (NULL);
+}
+
 size_t ft_strlen(char	*str)
 {
 	size_t i = 0;

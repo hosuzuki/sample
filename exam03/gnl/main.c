@@ -26,4 +26,5 @@ int	main(void)
 	printf("%s", line);
 	free(line);
 	line = NULL;
+//	system("leaks get_next_line");
 }
