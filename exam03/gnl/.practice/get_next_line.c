@@ -77,7 +77,7 @@ char *ft_strjoin(char *s1, char *s2)
 	ret[i] = '\0';
 	return (ret);
 }
-/*
+
 //int ft_create_ret(char **line, char *buf)
 char *ft_create_ret(char **buf)
 {
@@ -120,50 +120,10 @@ char *ft_create_ret(char **buf)
 			return (NULL);
 		}
 		//forgot
-		free (*buf)
-		*buf = tmp;
-	}
-	// mistook as 0
-	return (ret);
-}
-*/
-
-char	*ft_create_ret(char	**buf)
-{
-	char *new;
-	char *ret;
-	char *tmp;
-	
-	new = ft_strchr(*buf, '\n');
-	if (!new)
-	{
-		if (*buf[0] == '\0')
-			return (NULL);
-		ret = ft_strndup(*buf, ft_strlen(*buf));
-		if (!ret)
-		{
-			free (*buf);
-			return (NULL);
-		}
-	}
-	else
-	{
-		ret = ft_strndup(*buf, new - *buf);
-		if (!ret)
-		{
-			free (*buf);
-			return (NULL);
-		}
-		tmp = ft_strndup(new + 1, ft_strlen(new + 1));
-		if (!tmp)
-		{
-			free (*buf);
-			free (ret);
-			return (NULL);
-		}
 		free (*buf);
 		*buf = tmp;
 	}
+	// mistook as 0
 	return (ret);
 }
 
