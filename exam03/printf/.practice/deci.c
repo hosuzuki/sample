@@ -21,7 +21,7 @@ void ft_deci(t_lst *lst, int d)
 	if (0 < lst->pre)
 	{
 		j = 0;
-		zero = ft_zero(lst, i, space);
+		zero = ft_zero(lst, i);
 		while (j++ < zero)
 	//		ft_write_char(lst, ' ')
 			ft_write_char(lst, '0')
@@ -31,8 +31,8 @@ void ft_deci(t_lst *lst, int d)
 	//	if 
 		if (0 < lst->wid)
 			ft_write_char(lst, ' ');
-		else 
-			ft_write_char(lst, "");
+//		else 
+//			ft_write_char(lst, "");
 		return ;
 	}
 	ft_write_str(lst, res);
