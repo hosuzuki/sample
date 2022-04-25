@@ -110,9 +110,12 @@ int	ft_zero_deci(t_lst *lst, int i)
 	int ret = 0;
 
 //	(void)space;
-	if (i < lst->pre && lst->wid <= lst->pre)
+/*	if (i < lst->pre && lst->wid <= lst->pre)
 		ret = lst->pre - i;
 	else if (i < lst->pre && lst->pre < lst->wid)
+		ret = lst->pre - i;
+*/
+	if (i < lst->pre)
 		ret = lst->pre - i;
 	return (ret);
 }
@@ -162,6 +165,7 @@ void	ft_dtoh(char *res, unsigned int h, char *base, int *i)
 	res[(*i)++] = base[h % 16];
 }
 
+/*
 void ft_hex(t_lst *lst, unsigned int h)
 {
 	int i = 0;
@@ -182,6 +186,37 @@ void ft_hex(t_lst *lst, unsigned int h)
 		else 
 			ft_write_char(lst, ' ');
 		len--;
+	}
+	ft_write_str(lst, res);
+}
+*/
+void ft_hex(t_lst *lst, unsigned int h)
+{
+	char res[10] = {'\0'};
+	int i = 0;
+	int j = 0;
+	int space = 0;
+	int zero = 0;
+
+	ft_dtoh(res, h, "0123456789abcdef", &i);
+	if (lst->pre < lst->wid)
+	{
+		space = ft_space_deci(lst, i);
+		while (j++ < space)
+			ft_write_char(lst, ' ');
+	}
+	j = 0;
+	if (0 < lst->pre)
+	{
+		zero = ft_zero_deci(lst, i);
+		while (j++ < zero)
+			ft_write_char(lst, '0');
+	}
+	if (h == 0 && lst->pre == 0 && lst->pre_flag == 1)
+	{
+		if (0 < lst->wid)
+			 ft_write_char(lst, ' ');
+		return ;
 	}
 	ft_write_str(lst, res);
 }
