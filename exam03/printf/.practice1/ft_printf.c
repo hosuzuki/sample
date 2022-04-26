@@ -136,6 +136,7 @@ void ft_deci(t_lst *lst, int d)
 			ft_write_char(lst, ' ');
 		return ;
 	}
+//forgot
 	ft_write_str(lst, res);
 	return ;
 }
@@ -174,6 +175,7 @@ void ft_hex(t_lst *lst, unsigned int h)
 			ft_write_char(lst, ' ');
 		return ;
 	}
+//forgot
 	ft_write_str(lst, res);
 	return ;
 }
