@@ -124,7 +124,7 @@ void ft_deci(t_lst *lst, int d)
 {
 	char deci[15] = {'\0'};
 	int i = 0;
-	int j = 0;
+//	int j = 0;
 	int space = 0;
 	int zero = 0;
 
@@ -134,17 +134,19 @@ void ft_deci(t_lst *lst, int d)
 	if (lst->pre < lst->wid)
 	{
 		space = ft_space_deci(lst, i);
-		while (j++ < space)
+//		while (j++ < space)
+		while (0 < space--)
 			ft_write_char(lst, ' ');
 	}
 	if (lst->sign == -1)
 		ft_write_char(lst, '-');
-	j = 0;
+//	j = 0;
 	if (0 < lst->pre)
 	{
 //		zero = ft_zero_deci(lst, i, space);
 		zero = ft_zero_deci(lst, i);
-		while (j++ < zero)
+//		while (j++ < zero)
+		while (0 < zero--)
 			ft_write_char(lst, '0');
 	}
 	if (d == 0 && lst->pre == 0 && lst->pre_flag == 1)
