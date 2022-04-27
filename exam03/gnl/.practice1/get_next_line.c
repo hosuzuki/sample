@@ -37,7 +37,7 @@ char *ft_strndup(char *s, size_t len)
 		return (NULL);
 	if (s)
 	{
-		while (i < len)
+		while (i < len)// this is a key!
 		{
 			res[i] = s[i];
 			i++;
