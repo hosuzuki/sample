@@ -159,7 +159,6 @@ void ft_deci(t_lst *lst, int d)
 	ft_write_str(lst, res);
 }
 
-
 void ft_str(t_lst *lst, char *s)
 {
 	char null[7] = "(null)";
