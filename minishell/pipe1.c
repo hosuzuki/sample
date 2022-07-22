@@ -32,10 +32,10 @@ int popen2(int *fd_r, int *fd_w) {
 //	パイプを生成
 		if (pipe(pipe_parent2child) < 0) {
 //			パイプ生成失敗
-				perror("popen2");
+			perror("popen2");
 
 //			上で開いたパイプを閉じてから終了
-				close(pipe_child2parent[READ]);
+			close(pipe_child2parent[READ]);
 			close(pipe_child2parent[WRITE]);
 			return 1;
 		}
@@ -57,7 +57,8 @@ int popen2(int *fd_r, int *fd_w) {
 
 //	子プロセスか？
 		if (pid == 0) {
-//			子プロセスの場合は、親→子への書き込みはありえないのでcloseする
+			printf("child\n");
+			//			子プロセスの場合は、親→子への書き込みはありえないのでcloseする
 				close(pipe_parent2child[WRITE]);
 
 //			子プロセスの場合は、子→親の読み込みはありえないのでcloseする
@@ -74,18 +75,25 @@ int popen2(int *fd_r, int *fd_w) {
 			close(pipe_child2parent[WRITE]);
 
 //			子プロセスはここで該当プログラムを起動しリターンしない
-				if (execl("./test1", "./test1 EOF", NULL) < 0) {
+//			printf("child2\n");
+			if (execl("./test1", "./test1", NULL) < 0) {
 					perror("popen2");
 					close(pipe_parent2child[READ]);
 					close(pipe_child2parent[WRITE]);
-					return 1;
+//			printf("child2\n");
+//			write(1, "child3", 6);
+			return 1;
 				}
 		}
 
 //	親プロセス側の処理
-		close(pipe_parent2child[READ]);
+	printf("p_child2paretn[write]:%d\n", pipe_child2parent[WRITE]);
+	printf("p_parent2child[read]:%d\n", pipe_parent2child[READ]);
+	close(pipe_parent2child[READ]);
 	close(pipe_child2parent[WRITE]);
-
+	printf("parent1\n");
+	printf("p_child2paretn[read]:%d\n", pipe_child2parent[READ]);
+	printf("p_parent2child[wirte]:%d\n", pipe_parent2child[WRITE]);
 	*fd_r = pipe_child2parent[READ];
 	*fd_w = pipe_parent2child[WRITE];
 
@@ -102,13 +110,15 @@ int main(int argc, char *argv[]) {
 	}
 
 	popen2(&fd_r, &fd_w);
-//	printf("1\n");
+	printf("1\n");
+
 	write(fd_w, argv[1], strlen(argv[1]));
-//	printf("2\n");
+	printf("2\n");
+
 	char buf[255];
 	int size = read(fd_r, buf, 255);
 	
-//	printf("3\n");
+	printf("3\n");
 	if (size == -1) {
 		perror("error");
 		return 1;
